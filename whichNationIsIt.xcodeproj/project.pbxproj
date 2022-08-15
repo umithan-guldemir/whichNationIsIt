@@ -58,9 +58,6 @@
 		0F750A4128AA842900C7164B /* whichNationIsIt */ = {
 			isa = PBXGroup;
 			children = (
-				0F750A5028AA842B00C7164B /* Info.plist */,
-				0F750A4D28AA842B00C7164B /* LaunchScreen.storyboard */,
-				0F750A4B28AA842B00C7164B /* Assets.xcassets */,
 				0F750A5928AA852300C7164B /* Supporting Files */,
 				0F750A5828AA851B00C7164B /* Screens */,
 				0F750A5728AA851300C7164B /* App */,
@@ -88,6 +85,9 @@
 		0F750A5928AA852300C7164B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0F750A4B28AA842B00C7164B /* Assets.xcassets */,
+				0F750A4D28AA842B00C7164B /* LaunchScreen.storyboard */,
+				0F750A5028AA842B00C7164B /* Info.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -375,7 +375,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 629GLD2B37;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = whichNationIsIt/Info.plist;
+				INFOPLIST_FILE = "whichNationIsIt/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -403,7 +403,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 629GLD2B37;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = whichNationIsIt/Info.plist;
+				INFOPLIST_FILE = "whichNationIsIt/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
