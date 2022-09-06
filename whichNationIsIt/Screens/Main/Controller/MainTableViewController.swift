@@ -8,42 +8,80 @@
 import UIKit
 
 class MainTableViewController: UITableViewController {
+    
+    var response: NamesResponse? {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchController()
+        if response == nil {
+            NetworkManager.shared.getDefaultName() { res in
+                self.response = res
+                self.title = self.response?.name?.capitalized ?? "Which Nationality Is It?"
+            }
+        }
     }
     
     private func setupSearchController() {
         let search = UISearchController()
+        
         search.searchResultsUpdater = self
         search.obscuresBackgroundDuringPresentation = false
-        search.searchBar.placeholder = "Enter name or surname"
+        search.searchBar.placeholder = "Enter name"
         navigationItem.searchController = search
         
+    }
+    
+    
+    // MARK: - Country Flags and Round Methods for Cells
+    
+    private func flag(country: String) -> String {
+        let base : UInt32 = 127397
+        var s = ""
+        for v in country.unicodeScalars {
+            s.unicodeScalars.append(UnicodeScalar(base + v.value)!)
+        }
+        return String(s)
+    }
+    
+    private func roundDouble(double: Double) -> String {
+        let roundedDouble = round(double * 100) / 100.0
+        return String(roundedDouble)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return response?.country?.count ?? .zero
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cellCountry = response?.country![indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MainTableViewCell
+        cell.countryFlag.text = flag(country: cellCountry?.country_id ?? "null")
+        cell.countryProbability.text = roundDouble(double: (cellCountry?.probability) ?? 0.0)
 
-        // Configure the cell...
 
         return cell
     }
-    */
+    
+//
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//    }
 
 
     /*
@@ -62,7 +100,10 @@ extension MainTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
         if text.count > 2 {
-            
+            NetworkManager.shared.searchNames(with: text) { res in
+                self.response = res
+                self.title = self.response?.name?.capitalized ?? "Which Nationality Is It?"
+            }
         }
     }
     

@@ -8,6 +8,9 @@
 import UIKit
 
 class MainTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var countryFlag: UILabel!
+    @IBOutlet weak var countryProbability: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
