@@ -21,12 +21,7 @@ class MainTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchController()
-        if response == nil {
-            NetworkManager.shared.getDefaultName() { res in
-                self.response = res
-                self.title = self.response?.name?.capitalized ?? "Which Nationality Is It?"
-            }
-        }
+
     }
     
     private func setupSearchController() {
@@ -43,6 +38,9 @@ class MainTableViewController: UITableViewController {
     // MARK: - Country Flags and Round Methods for Cells
     
     private func flag(country: String) -> String {
+        if country == "" {
+            return "🏴‍☠️"
+        }
         let base : UInt32 = 127397
         var s = ""
         for v in country.unicodeScalars {
@@ -53,7 +51,11 @@ class MainTableViewController: UITableViewController {
     
     private func roundDouble(double: Double) -> String {
         let roundedDouble = round(double * 100) / 100.0
-        return String(roundedDouble)
+        var percentage = String(roundedDouble).dropFirst(2)
+        if percentage.first == "0" {
+            percentage = percentage.dropFirst()
+        }
+        return "\(percentage)%"
     }
 
     // MARK: - Table view data source
